@@ -16,7 +16,7 @@ test('LAB2_TEST_001', async ({ page }) => {
     const affordableBooks = [];
     for (const product of products) {
         const priceText = await product.locator('span.price.actual-price').textContent();
-        const price = parseFloat(priceText);2
+        const price = parseFloat(priceText);
 
         if (price < 20) {
             affordableBooks.push(product);
@@ -52,5 +52,45 @@ test('LAB2_TEST_001', async ({ page }) => {
     expect(cartPrice).toBe(totalPrice);
     
 
+
+});
+
+test('LAB2_TEST_002', async ({ page }) => {
+    await page.goto("https://demoqa.com/");
+
+    await page.getByText('Elements').click();
+
+    await page.getByText('Web Tables').click();
+
+    const nextButton = page.getByText('Next');
+    // 100 is random here
+    for (let i = 0; i < 100; i++) {
+        await page.locator('button#addNewRecordButton').filter({hasText: 'Add'}).click();        const firstName = `First${i}`;
+        const lastName = `Last${i}`;
+        const email = `user${i}@example.com`;
+        const age = (20 + i).toString();
+        const salary = 100 + i;
+        const department = `Department${i}`;
+        await page.getByPlaceholder('First Name').fill(firstName);
+        await page.getByPlaceholder('Last Name').fill(lastName);
+        await page.getByPlaceholder('name@example.com').fill(email);
+        await page.getByPlaceholder('Age').fill(age);
+        await page.getByPlaceholder('Salary').fill(salary.toString());
+        await page.getByPlaceholder('Department').fill(department);
+        await page.getByRole('button', { name: 'submit' }).click();
+
+        await page.locator('.modal[role="dialog"]').waitFor({ state: 'hidden' });
+
+        if (await nextButton.isEnabled()) {
+            break;
+        }
+    }
+    await expect(page.locator('.col-auto').filter({hasText: 'Page'})).toContainText('Page 1 of 2');
+    await nextButton.click();
+
+    await page.locator('table tbody tr').first()
+     .locator('span[title="Delete"]').click();
+
+        await expect(page.locator('.col-auto').filter({hasText: 'Page'})).toContainText('Page 1 of 1');
 
 });
