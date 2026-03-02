@@ -1,0 +1,23 @@
+{
+  "navigation": {
+    "baseUrl": "https://demowebshop.tricentis.com/",
+    "category": "Computers",
+    "subcategory": "Desktops"
+  },
+  "user": {
+    "firstName": "firstName1",
+    "lastName": "lastName1",
+    "emailPrefix": "user",
+    "emailDomain": "@example.com",
+    "passwordBase": "password"
+  },
+  "product": {
+    "name": "Build your own expensive computer",
+    "minPrice": 900,
+    "processorUpgrade": "Fast"
+  },
+  "cart": {
+    "initialQuantity": "1",
+    "updatedQuantity": "2"
+  }
+}
